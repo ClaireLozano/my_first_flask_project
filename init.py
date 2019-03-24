@@ -38,13 +38,14 @@ def talProject():
 def talProjectSubmit():
 	text = request.form['text']
 	precision = request.form['precision']
-	[data, frequence] = getDataFromText(text, precision)
+	[data, frequence, listSortedWords] = getDataFromText(text, precision)
 	return render_template('TALProject.html', data={
 			'text': text, 
 			'precision': precision, 
 			'title': 'TAL Project',
 			'data': data,
-			'frequence': frequence
+			'frequence': frequence,
+			'listSortedWords': listSortedWords
 		})
 
 if __name__ == '__main__':
