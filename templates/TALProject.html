@@ -75,7 +75,7 @@
 					{% for d in data.data %}
 					<tr>
 						<td>{{ d[1] }}</td>
-						<td>{{ d[0]*100 }} %</td>
+						<td>{{ (d[0]*100)|round(1, 'floor') }} %</td>
 					</tr>
 					{% endfor %}
 				</tbody>
