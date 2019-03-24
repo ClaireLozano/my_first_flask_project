@@ -20,15 +20,16 @@
 	<hr>
 	<p>Ce projet a été réalisé dans le cadre universitaire par équipe de deux. L'objectif était de reconnaitre la langue d'un texte en utilisant les mots les plus communs d'une langue. On déterminera aussi le pourcentage de précision des résultats.</p>
 	<br>
-	<form>
+	<form action="{{ url_for('talProjectSubmit') }}" method="post">
 		<div class="form-group">
 			<label for="textArea">Entrez du texte dans la langue souhaité (it/pt/sv/fr/es/en/da/cs/sl/nl/de) :</label>
-			<textarea class="form-control" id="textArea" rows="10">{{ data.text }}</textarea>
+			<textarea name="text" class="form-control" id="textArea" rows="10">{{ data.text }}</textarea>
 			<p class="information-quote">* Plus le texte sera long, plus le résultat sera précis</p>
 		</div>
+		<br>
 		<div class="form-group">
 			<label for="formControlSelect">Selectionnez un indice de précision (correspond au nombre de mot les plus utilisés dans une langue)</label>
-			<select class="form-control" id="formControlSelect">
+			<select name="precision" class="form-control" id="formControlSelect">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -52,12 +53,13 @@
 			</select>
 			<p class="information-quote">* Plus l'indice sera élevé, moins le résultat sera précis</p>
 		</div>
+		<br>
 		<button type="submit" class="btn btn-dark">Submit</button>
 	</form>
 	<br>
 	<br>
 
-
+	{% if data.data %}
 	<h2>Résultats</h2>
 	<hr>
 	<div class="row">
@@ -137,7 +139,7 @@
 	</div>
 	{% endfor %}
 
-
+	{% endif %}
 
 
 
