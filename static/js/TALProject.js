@@ -26,7 +26,7 @@ $(document).ready(function () {
 			let labelToDisplay = [];
 
 			for (let i = 0; i < data.frequence[country].length; i++) {
-				dataToDisplay.push(data.frequence[country][i][0]*100);
+				dataToDisplay.push(data.frequence[country][i][0]);
 				labelToDisplay.push(data.frequence[country][i][1]);
 			}
 
