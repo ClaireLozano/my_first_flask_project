@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+
+
+<div class="jumbotron">
+	<div class="container">
+		{% if data.title %}
+		<h1>My first Flask application - {{ data.title }}</h1>
+		{% else %}
+		<h1>My first Flask application</h1>
+		{% endif %}
+	</div>
+</div>
+
+<div class="container">
+	<h2>Projet d'analyse du langage</h2>
+	<hr>
+	<p>Ce projet a été réalisé dans le cadre universitaire par équipe de deux. L'objectif était de reconnaitre la langue d'un texte en utilisant les mots les plus communs d'une langue. On déterminera aussi le pourcentage de précision des résultats.</p>
+	<br>
+	<form>
+		<div class="form-group">
+			<label for="textArea">Entrez du texte dans la langue souhaité (it/pt/sv/fr/es/en/da/cs/sl/nl/de) :</label>
+			<textarea class="form-control" id="textArea" rows="10">{{ data.text }}</textarea>
+			<p class="information-quote">* Plus le texte sera long, plus le résultat sera précis</p>
+		</div>
+		<div class="form-group">
+			<label for="formControlSelect">Selectionnez un indice de précision (correspond au nombre de mot les plus utilisés dans une langue)</label>
+			<select class="form-control" id="formControlSelect">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+				<option>13</option>
+				<option>14</option>
+				<option>15</option>
+				<option>16</option>
+				<option>17</option>
+				<option>18</option>
+				<option>19</option>
+				<option>20</option>
+			</select>
+			<p class="information-quote">* Plus l'indice sera élevé, moins le résultat sera précis</p>
+		</div>
+		<button type="submit" class="btn btn-dark">Submit</button>
+	</form>
+	<br>
+	<br>
+
+
+	<h2>Résultats</h2>
+	<hr>
+	<div class="row">
+		<div class="col-md-4">
+			<table class="table table-result">
+				<thead>
+					<tr>
+						<th scope="col">Pays</th>
+						<th scope="col">Pourcentage</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for d in data.data %}
+					<tr>
+						<td>{{ d[1] }}</td>
+						<td>{{ d[0]*100 }} %</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-8">
+			<canvas id="result-chart" width="600" height="400"></canvas>
+		</div>
+	</div>
+
+
+
+	<br>
+	<br>
+	<h2>Détails des résultats</h2>
+	<hr>
+	<p>Dans le cadre de ce TP, j'ai utilisé la loi de <a href="https://en.wikipedia.org/wiki/Zipf%27s_law">Zipf</a>. Il m'a donc fallu passer par une première phase d'analyse de texte. Pour cela, je me suis aidé d'une base de donnée contenant un certain nombre de document dans différentes langage. Pour chaque langue, j'ai analysé et extrait les 20 mots les plus utilisés dans l'ensemble des textes donnés.</p>
+
+
+	<p>Voir les données pour la langue :</p>
+	
+	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		{% for country in data.frequence.items() %}	
+		<label class="btn btn-secondary">
+			<button class="btn btn-secondary btn-country-result" autocomplete="off" aria-pressed="false" type="button" data-toggle="collapse" data-target="#collapse{{ country[0] }}" aria-expanded="false" aria-controls="collapse{{ country[0] }}">
+				{{ country[0] }}
+			</button>
+		</label>
+		{% endfor %}
+	</div>
+
+
+
+
+	{% for country in data.frequence.items() %}	
+	<div class="collapse collapse-country-result" id="collapse{{ country[0] }}">
+		<div class="row">
+			<div class="col-md-4">
+				<table class="table table-result">
+					<thead>
+						<tr>
+							<th scope="col">Mot</th>
+							<th scope="col">#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for value in country[1] %}
+						<tr>
+							<td>{{ value[1] }}</td>
+							<td>{{ value[0] }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-4">
+				<canvas id="chart-result-details-{{ country[0] }}" width="600" height="400"></canvas>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+
+
+
+
+
+
+
+
+	<br>
+	<br>
+	<p>
+		Vous pouvez retrouver le code surce sur mon  
+		<a href="https://github.com/ClaireLozano/TAL_TD2">github</a>
+	</p>
+	<script type="text/javascript">
+		// Get data
+		var data = {{ data|tojson }};
+	</script>
+	<script src="{{ url_for('static', filename='js/TALProject.js') }}"></script>
+
+</div>
+{% endblock content %}
