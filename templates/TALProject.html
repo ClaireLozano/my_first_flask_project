@@ -4,7 +4,8 @@
 
 
 
-
+<br>
+<br>
 <div class="jumbotron">
 	<div class="container">
 		{% if data.title %}
@@ -140,9 +141,33 @@
 	{% endfor %}
 
 	<hr>
-	<p>Et pour finir il m'a fallu faire la même chose pour le texte renseigné.</p>
+	<p>Et pour finir il m'a fallu faire la même chose pour un texte donné dont on voudrait connaitre la langue. Ici on peut voir les occurences des mots de votre texte : </p>
 
-	{{data.listSortedWords}}
+	<div class="row">
+		<div class="col-md-4">
+			<table class="table table-result">
+				<thead>
+					<tr>
+						<th scope="col">Mot</th>
+						<th scope="col">#</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for value in data.listSortedWords %}
+					<tr>
+						<td>{{ value[1] }}</td>
+						<td>{{ value[0] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-4">
+			<canvas id="chart-result-text-details" width="600" height="400"></canvas>
+		</div>
+	</div>
+
 	{% endif %}
 
 
@@ -154,7 +179,7 @@
 	<br>
 	<br>
 	<p>
-		Vous pouvez retrouver le code surce sur mon  
+		Vous pouvez retrouver le code source de ce projet sur mon  
 		<a href="https://github.com/ClaireLozano/TAL_TD2">github</a>
 	</p>
 	<script type="text/javascript">

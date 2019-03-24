@@ -68,8 +68,24 @@ $(document).ready(function () {
 
 	};
 
+
+	function createChartText() {
+		let percent = [];
+		let country = [];
+
+		for (let i = 0; i < data.listSortedWords.length; i++) {
+			percent.push(data.listSortedWords[i][0]);
+			country.push(data.listSortedWords[i][1]);
+		}
+
+		createSimpleChart("chart-result-text-details", percent, country, 'Occurence', 20);
+	};
+
+
+
 	init();
 	createResultChart();
 	createChartByCountry();
+	createChartText();
 
 });
